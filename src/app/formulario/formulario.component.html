@@ -1,0 +1,40 @@
+<div class="container">
+    <h1>Gestión de usuarios</h1>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="div-container" >
+        <label class="lab" for="name">Nombre:</label>
+        <input class="entrada" id="name" formControlName="name" required="" >
+      </div>
+      <div class="div-container">
+        <label class="lab" for="age">Edad:</label>
+        <input class="entrada" type="number" id="age" formControlName="age" required="">
+      </div>
+  
+      <div class="div-container">
+        <label class="lab" for="dpi">DPI:</label>
+        <input class="entrada" id="dpi" formControlName="dpi">
+        <small class="mensaje" *ngIf="userForm.get('dpi')?.errors?.['dpiNotUnique']">DPI ya se encuentra registrado</small>
+      </div>
+      <div class="button-container">
+        <button class="button-form" type="submit" [disabled]="userForm.invalid">Agregar Usuario</button>
+      </div>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>DPI</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{ user.name }} </td>
+                <td>{{ user.age }}</td>
+                <td>{{ user.dpi }}</td>
+                <td class="eliminar-container"><button class="btn-eliminar" (click)="removeUser(user.dpi)">Eliminar</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
